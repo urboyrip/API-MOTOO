@@ -23,7 +23,6 @@ export class TiketService {
         } catch(err){
             throw err;
         }
-        
     }
 
     async CreateData(data : dtoTiket) {
