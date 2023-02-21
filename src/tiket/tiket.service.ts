@@ -57,6 +57,16 @@ export class TiketService {
         return (totalClosed);
     }
 
+    async CountTechnician(){
+        const totalTechnician = await this.dataTiket
+        .createQueryBuilder("data_tiket_csv")
+        .select("data_tiket_csv.Technician,COUNT(*)", "totalTechnician")
+        .groupBy("data_tiket_csv.Technician")
+        .orderBy("COUNT(*)","DESC")
+        .getRawMany();
+        return (totalTechnician);
+    }
+
     async ListDataClosed(){
         const listClosed = await this.dataTiket
         .createQueryBuilder("data_tiket_csv")
@@ -150,12 +160,32 @@ export class TiketService {
         .getRawOne();
         return (totalIncidentClosed);
     }
+
+    async CountRequestCanceled(){
+        const totalRequestCanceled = await this.dataTiket
+        .createQueryBuilder("data_tiket_csv")
+        .select("COUNT(*)", "totalPoints")
+        .where("data_tiket_csv.Request_Type = :Request_Type", {Request_Type: "Request"})
+        .andWhere("data_tiket_csv.Request_Status = :Request_Status", {Request_Status: "Canceled"})
+        .getRawOne();
+        return (totalRequestCanceled);
+    }
+
+    async CountIncidentCanceled(){
+        const totalIncidentCanceled = await this.dataTiket
+        .createQueryBuilder("data_tiket_csv")
+        .select("COUNT(*)", "totalPoints")
+        .where("data_tiket_csv.Request_Type = :Request_Type", {Request_Type: "Incident"})
+        .andWhere("data_tiket_csv.Request_Status = :Request_Status", {Request_Status: "Canceled"})
+        .getRawOne();
+        return (totalIncidentCanceled);
+    }
     
     async CountSLAPoints(){
         const totalPoints = await this.dataTiket
         .createQueryBuilder("data_tiket_csv")
         .select("COUNT(*)", "totalPoints")
-        .where("data_tiket_csv.DueBy_Time = dummy_motoo_csv.SLA_Time")
+        .where("data_tiket_csv.DueBy_Time = data_tiket_csv.SLA_Time")
         .getRawOne();
         return (totalPoints);
     }

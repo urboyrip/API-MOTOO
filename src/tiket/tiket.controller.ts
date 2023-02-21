@@ -6,7 +6,12 @@ import { Delete } from '@nestjs/common/decorators';
 @Controller('tiket')
 export class TiketController {
     
-    constructor(private TiketService: TiketService) {}
+    constructor(public TiketService: TiketService) {}
+
+    @Get('jumlah-technician')
+    getJumlahTechnician(){
+        return this.TiketService.CountTechnician();
+    }
 
     @Get()
     homeTiket() {
@@ -71,6 +76,14 @@ export class TiketController {
     @Get('RequestClosed')
     getRequestClosed(){
         return this.TiketService.CountRequestClosed();
+    }
+    @Get('RequestCanceled')
+    getRequestCanceled(){
+        return this.TiketService.CountRequestCanceled();
+    }
+    @Get('IncidentCanceled')
+    getIncidentCanceled(){
+        return this.TiketService.CountIncidentCanceled();
     }
     @Get(':id')
     getDataTiketByData(@Param('id')id:number){

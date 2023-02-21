@@ -43,4 +43,8 @@ export class TaskController {
     deleteDataTiket(@Param('id')id:number){
         return this.TaskService.DeleteData(id);
     }
+    @Get('jumlah-technician')
+    getJumlahTechnician(){
+        return this.TaskService.CountTechnician();
+    }
 }
