@@ -71,10 +71,11 @@ export class TaskService {
     async CountTechnician(){
         const totalTechnician = await this.dataTask
         .createQueryBuilder("data_task_csv")
-        .select("data_task_csv.Technician, COUNT(*)", "totalTechnician")
+        .select("data_task_csv.Technician,COUNT(*)", "totalTechnician")
         .groupBy("data_task_csv.Technician")
         .orderBy("COUNT(*)","DESC")
         .getRawMany();
         return (totalTechnician);
     }
+    
 }

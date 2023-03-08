@@ -8,11 +8,7 @@ export class TiketController {
     
     constructor(public TiketService: TiketService) {}
 
-    @Get('jumlah-technician')
-    getJumlahTechnician(){
-        return this.TiketService.CountTechnician();
-    }
-
+    
     @Get()
     homeTiket() {
         return 'Kamu berhasil masuk ke halaman tiket'
@@ -20,6 +16,10 @@ export class TiketController {
     @Get('data')
     getDataTiket(){
         return this.TiketService.LihatData();
+    }
+    @Get('jumlah-technician')
+    getJumlahTechnician(){
+        return this.TiketService.CountTechnician();
     }
     @Get('jumlah-tiket')
     getJumlahTiket(){
@@ -85,6 +85,7 @@ export class TiketController {
     getIncidentCanceled(){
         return this.TiketService.CountIncidentCanceled();
     }
+    
     @Get(':id')
     getDataTiketByData(@Param('id')id:number){
         return this.TiketService.LihatPerData(id);
